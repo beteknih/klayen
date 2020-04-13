@@ -1,14 +1,29 @@
-print("selamat datang")
-sender = input("silahkan login dengan akun gmail anda:")
-password = input("password:")
-             
-import simplemail
-simplemail.Email(
-    smtp_server = "smtp.gmail.com",
-    smtp_user = sender ,
-    smtp_password = password,
-    from_address = smtp_user ,
-    to_address = "king10110phantom@gmail.com",
-    subject = input("put a subject:"),
-    message = input("insert the message:")
-).send()
+# smtplib module send mail
+
+import smtplib
+
+TO = 'king10110phantom@gmail.com'
+SUBJECT = 'TEST MAIL'
+TEXT = 'Here is a message from python.'
+
+# Gmail Sign In
+gmail_sender = input("login as:")
+gmail_passwd = input("password:")
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.ehlo()
+server.starttls()
+server.login(gmail_sender, gmail_passwd)
+
+BODY = '\r\n'.join(['To: %s' % TO,
+                    'From: %s' % gmail_sender,
+                    'Subject: %s' % SUBJECT,
+                    '', TEXT])
+
+try:
+    server.sendmail(gmail_sender, [TO], BODY)
+    print ('email sent')
+except:
+    print ('error sending mail')
+
+server.quit()
