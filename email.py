@@ -3,7 +3,7 @@
 import smtplib 
   
 # creates SMTP session 
-s = smtplib.SMTP('smtp.gmail.com', 587) 
+s = smtplib.SMTP(smtp.gmail.com, 587) 
   
 # start TLS for security 
 s.starttls() 
